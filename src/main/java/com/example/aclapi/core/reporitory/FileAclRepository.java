@@ -1,35 +1,36 @@
 package com.example.aclapi.core.reporitory;
 
-import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import com.example.aclapi.core.domain.Rule;
+import com.example.aclapi.core.util.FileLoader;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class FileAclRepository implements AclRepository {
+	@NonNull
+	private FileLoader		fileLoader;
 
-	private final Path filePath;
-
-	public FileAclRepository(Path filePath) {
-		super();
-		this.filePath = filePath;
-	}
+	private Predicate<Rule>	findByIdPredicate;
 
 	@Override
 	public List<Rule> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return fileLoader.load().collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Rule> findOneById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Rule> findOneById(int id) {
+		return fileLoader.load().filter(findByIdPredicate).findFirst();
 	}
 
 	@Override
-	public List<Rule> findFirstMatch(Rule filter) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Rule> findFirstMatch(Predicate<Rule> predicate) {
+		return fileLoader.load().filter(predicate).findFirst();
 	}
 
 }
