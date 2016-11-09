@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.aclapi.jersey.config;
 
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
