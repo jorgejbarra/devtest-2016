@@ -12,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import com.example.aclapi.core.domain.Rule;
 import com.example.aclapi.core.mapper.RuleMapper;
 
-import lombok.Builder;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
-@Builder
+@RequiredArgsConstructor
 public class FileLoader {
 	private final Logger	logger	= LoggerFactory.getLogger(this.getClass());
 	@NonNull

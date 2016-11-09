@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import com.example.aclapi.core.domain.Rule;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class RuleMapper implements Function<String, Optional<Rule>> {
 	private static final int	ID_GROUP			= 1;
 	private static final int	SOURCE_GROUP		= 2;
@@ -21,12 +25,8 @@ public class RuleMapper implements Function<String, Optional<Rule>> {
 	private final Logger		logger				= LoggerFactory.getLogger(this.getClass());
 	private final Pattern		p					= Pattern.compile("(\\d+) FROM ([\\w+\\.\\/]+) TO ([\\w+\\.\\/]+) WITH ([\\w\\/\\,]+) => (\\w+)", Pattern.CASE_INSENSITIVE);
 
+	@NonNull
 	private final ActionMapper	actionMapper;
-
-	public RuleMapper(ActionMapper actionMapper) {
-		super();
-		this.actionMapper = actionMapper;
-	}
 
 	@Override
 	public Optional<Rule> apply(String line) {

@@ -10,9 +10,19 @@ public class FileLoaderFactory {
 
 	public static FileLoader defaultFileLoader() {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		URL url = classloader.getResource("acl-1000ok.txt");
+		URL url = classloader.getResource("intelliment-devtest-acl.txt");
 		try {
-			return FileLoader.builder().filePath(Paths.get(url.toURI())).ruleMapper(RuleMapperFactory.defaultRuleMapper()).build();
+			return new FileLoader(Paths.get(url.toURI()), RuleMapperFactory.defaultRuleMapper());
+		} catch (URISyntaxException e) {
+			throw new IllegalStateException("No se puede cargar el archivo de datos");
+		}
+	}
+
+	public static FileLoader fileLoader(String fileName) {
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		URL url = classloader.getResource(fileName);
+		try {
+			return new FileLoader(Paths.get(url.toURI()), RuleMapperFactory.defaultRuleMapper());
 		} catch (URISyntaxException e) {
 			throw new IllegalStateException("No se puede cargar el archivo de datos");
 		}
