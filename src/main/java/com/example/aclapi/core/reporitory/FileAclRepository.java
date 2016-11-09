@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.example.aclapi.core.domain.Rule;
-import com.example.aclapi.core.util.FileLoader;
+import com.example.aclapi.core.util.RuleLoader;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FileAclRepository implements AclRepository {
 	@NonNull
-	private FileLoader		fileLoader;
-
-	private Predicate<Rule>	findByIdPredicate;
+	private RuleLoader fileLoader;
 
 	@Override
 	public List<Rule> findAll() {
@@ -25,7 +23,7 @@ public class FileAclRepository implements AclRepository {
 
 	@Override
 	public Optional<Rule> findOneById(int id) {
-		return fileLoader.load().filter(findByIdPredicate).findFirst();
+		return fileLoader.load().filter(r -> r.getId() == id).findFirst();
 	}
 
 	@Override
