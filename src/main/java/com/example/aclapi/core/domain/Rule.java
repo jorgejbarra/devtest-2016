@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class SingleRule {
+public class Rule {
 
 	private int		id;
 	private String	source;

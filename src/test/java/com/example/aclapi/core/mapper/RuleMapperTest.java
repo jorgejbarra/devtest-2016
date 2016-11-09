@@ -6,22 +6,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.example.aclapi.core.domain.Action;
-import com.example.aclapi.core.domain.SingleRule;
+import com.example.aclapi.core.domain.Rule;
 
-public class SingleRuleMapperTest {
+public class RuleMapperTest {
 
 	@Test
 	public void rightLineProduceRigthRule() {
 		//given
 		String line = "1 from 43.0.0.0/8 to any with udp/53839,49944,58129,21778 => deny";
-		SingleRuleMapper singleRuleMapper = new SingleRuleMapper(new ActionMapper());
+		RuleMapper singleRuleMapper = new RuleMapper(new ActionMapper());
 
 		//when
-		Optional<SingleRule> result = singleRuleMapper.toSingleRule(line);
+		Optional<Rule> result = singleRuleMapper.toSingleRule(line);
 
 		//then
 		Assert.assertTrue(result.isPresent());
-		SingleRule rule = result.get();
+		Rule rule = result.get();
 		Assert.assertTrue(rule.getId() == 1);
 		Assert.assertTrue(rule.getSource().equals("43.0.0.0/8"));
 		Assert.assertTrue(rule.getDestination().equals("any"));
@@ -34,10 +34,10 @@ public class SingleRuleMapperTest {
 	public void whenLineNoMatchesProduceEmptyOptional() {
 		//given
 		String line = "1 from2 43.0.0.0/8 to any with udp/53839,49944,58129,21778 => deny";
-		SingleRuleMapper singleRuleMapper = new SingleRuleMapper(new ActionMapper());
+		RuleMapper singleRuleMapper = new RuleMapper(new ActionMapper());
 
 		//when
-		Optional<SingleRule> result = singleRuleMapper.toSingleRule(line);
+		Optional<Rule> result = singleRuleMapper.toSingleRule(line);
 
 		//then
 		Assert.assertTrue(!result.isPresent());

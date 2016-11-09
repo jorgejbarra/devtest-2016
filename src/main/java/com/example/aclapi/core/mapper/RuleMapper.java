@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.aclapi.core.domain.SingleRule;
+import com.example.aclapi.core.domain.Rule;
 
-public class SingleRuleMapper {
+public class RuleMapper {
 	private static final int	ID_GROUP			= 1;
 	private static final int	SOURCE_GROUP		= 2;
 	private static final int	DESTINATION_GROUP	= 3;
@@ -22,17 +22,17 @@ public class SingleRuleMapper {
 
 	private final ActionMapper	actionMapper;
 
-	public SingleRuleMapper(ActionMapper actionMapper) {
+	public RuleMapper(ActionMapper actionMapper) {
 		super();
 		this.actionMapper = actionMapper;
 	}
 
-	public Optional<SingleRule> toSingleRule(String string) {
+	public Optional<Rule> toSingleRule(String string) {
 		Matcher m = p.matcher(string);
 
-		SingleRule result = null;
+		Rule result = null;
 		if (m.matches() && m.groupCount() == NUMBER_OF_GROUP) {
-			result = SingleRule.builder()//
+			result = Rule.builder()//
 					.id(Integer.parseInt(m.group(ID_GROUP)))//
 					.source(m.group(SOURCE_GROUP))//
 					.destination(m.group(DESTINATION_GROUP))//
