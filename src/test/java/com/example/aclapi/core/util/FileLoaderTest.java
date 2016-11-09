@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.example.aclapi.core.factories.FileLoaderFactory;
 import com.example.aclapi.core.factories.RuleMapperFactory;
 
 public class FileLoaderTest {
@@ -14,9 +15,7 @@ public class FileLoaderTest {
 	@Test
 	public void allLineOk() throws URISyntaxException {
 		//given 
-		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		URL url = classloader.getResource("acl-1000ok.txt");
-		FileLoader fileLoader = FileLoader.builder().filePath(Paths.get(url.toURI())).ruleMapper(RuleMapperFactory.defaultRuleMapper()).build();
+		FileLoader fileLoader = FileLoaderFactory.defaultFileLoader();
 
 		//when
 		long count = fileLoader.load().count();
