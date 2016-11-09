@@ -17,7 +17,7 @@ public class RuleMapperTest {
 		RuleMapper singleRuleMapper = new RuleMapper(new ActionMapper());
 
 		//when
-		Optional<Rule> result = singleRuleMapper.toSingleRule(line);
+		Optional<Rule> result = singleRuleMapper.apply(line);
 
 		//then
 		Assert.assertTrue(result.isPresent());
@@ -37,7 +37,7 @@ public class RuleMapperTest {
 		RuleMapper singleRuleMapper = new RuleMapper(new ActionMapper());
 
 		//when
-		Optional<Rule> result = singleRuleMapper.toSingleRule(line);
+		Optional<Rule> result = singleRuleMapper.apply(line);
 
 		//then
 		Assert.assertTrue(!result.isPresent());

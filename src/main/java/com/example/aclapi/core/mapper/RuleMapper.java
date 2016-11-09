@@ -1,6 +1,7 @@
 package com.example.aclapi.core.mapper;
 
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.example.aclapi.core.domain.Rule;
 
-public class RuleMapper {
+public class RuleMapper implements Function<String, Optional<Rule>> {
 	private static final int	ID_GROUP			= 1;
 	private static final int	SOURCE_GROUP		= 2;
 	private static final int	DESTINATION_GROUP	= 3;
@@ -17,7 +18,7 @@ public class RuleMapper {
 	private static final int	ACTION_GROUP		= 5;
 	private static final int	NUMBER_OF_GROUP		= 5;
 
-	private final Logger		logger				= LoggerFactory.getLogger("chapters.introduction.HelloWorld1");
+	private final Logger		logger				= LoggerFactory.getLogger(this.getClass());
 	private final Pattern		p					= Pattern.compile("(\\d+) FROM ([\\w+\\.\\/]+) TO ([\\w+\\.\\/]+) WITH ([\\w\\/\\,]+) => (\\w+)", Pattern.CASE_INSENSITIVE);
 
 	private final ActionMapper	actionMapper;
@@ -27,8 +28,9 @@ public class RuleMapper {
 		this.actionMapper = actionMapper;
 	}
 
-	public Optional<Rule> toSingleRule(String string) {
-		Matcher m = p.matcher(string);
+	@Override
+	public Optional<Rule> apply(String line) {
+		Matcher m = p.matcher(line);
 
 		Rule result = null;
 		if (m.matches() && m.groupCount() == NUMBER_OF_GROUP) {
@@ -41,7 +43,7 @@ public class RuleMapper {
 					.build();
 
 		} else {
-			logger.error("Linea con formato incorrecto: " + string);
+			logger.error("Linea con formato incorrecto: " + line);
 		}
 		return Optional.ofNullable(result);
 	}
