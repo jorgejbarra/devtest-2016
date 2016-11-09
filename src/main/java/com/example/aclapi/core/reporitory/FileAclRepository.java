@@ -1,9 +1,8 @@
 package com.example.aclapi.core.reporitory;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.example.aclapi.core.domain.Rule;
 import com.example.aclapi.core.util.RuleLoader;
@@ -17,8 +16,8 @@ public class FileAclRepository implements AclRepository {
 	private RuleLoader fileLoader;
 
 	@Override
-	public List<Rule> findAll() {
-		return fileLoader.load().collect(Collectors.toList());
+	public Stream<Rule> findAll() {
+		return fileLoader.load();
 	}
 
 	@Override

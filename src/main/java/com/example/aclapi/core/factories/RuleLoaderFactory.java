@@ -9,21 +9,21 @@ import com.example.aclapi.core.util.RuleLoader;
 
 public class RuleLoaderFactory {
 
-	public static RuleLoader defaultFileLoader() {
+	public static RuleLoader createFileLoader() {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		URL url = classloader.getResource("intelliment-devtest-acl.txt");
 		try {
-			return new RuleFileLoader(Paths.get(url.toURI()), RuleMapperFactory.defaultRuleMapper());
+			return new RuleFileLoader(Paths.get(url.toURI()), RuleMapperFactory.createRuleMapper());
 		} catch (URISyntaxException e) {
 			throw new IllegalStateException("No se puede cargar el archivo de datos");
 		}
 	}
 
-	public static RuleLoader fileLoader(String fileName) {
+	public static RuleLoader createFileLoader(String fileName) {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		URL url = classloader.getResource(fileName);
 		try {
-			return new RuleFileLoader(Paths.get(url.toURI()), RuleMapperFactory.defaultRuleMapper());
+			return new RuleFileLoader(Paths.get(url.toURI()), RuleMapperFactory.createRuleMapper());
 		} catch (URISyntaxException e) {
 			throw new IllegalStateException("No se puede cargar el archivo de datos");
 		}

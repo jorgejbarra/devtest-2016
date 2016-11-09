@@ -5,7 +5,7 @@ import com.example.aclapi.core.mapper.RuleMapper;
 
 public class RuleMapperFactory {
 
-	public static RuleMapper defaultRuleMapper() {
+	public static RuleMapper createRuleMapper() {
 		return new RuleMapper(new ActionMapper());
 	}
 }
