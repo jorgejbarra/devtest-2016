@@ -12,7 +12,7 @@ import com.example.aclapi.jersey.config.MyResourceConfig;
 
 public class App {
 
-	private static final URI BASE_URI = URI.create("http://localhost:8080/");
+	private static final URI BASE_URI = URI.create("http://localhost:8080/intelliment/");
 
 	public static void main(String[] args) {
 		try {
